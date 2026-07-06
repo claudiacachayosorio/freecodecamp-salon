@@ -1,12 +1,28 @@
 #!/bin/bash
 
+####################################
+# SALON APPOINTMENT SCHEDULING APP #
+####################################
+
+# To execute this script, run the following command in your terminal:
+# ./salon.sh
+
+
+
+
+# ==================================================
+# INITIAL VARIABLES
+# ==================================================
+
 DB=salon
 PSQL="psql --username=freecodecamp --dbname=$DB --tuples-only -c"
 
 
 
-echo -e "\n~~~~~ EMERY SALON ~~~~~\n"
-echo -e "Welcome to Emery Salon's scheduling app!"
+
+# ================================================
+# FUNCTIONS
+# ================================================
 
 
 FORMAT_VARCHAR() {
@@ -117,5 +133,14 @@ MAKE_APPT() {
 	fi
 }
 
+
+
+
+# =================================================
+# POINT OF ENTRY
+# =================================================
+
+echo -e "\n~~~~~ EMERY SALON ~~~~~\n"
+echo -e "Welcome to Emery Salon's scheduling app!"
 
 MAKE_APPT
