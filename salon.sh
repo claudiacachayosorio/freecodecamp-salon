@@ -1,18 +1,18 @@
 #!/bin/bash
 
-####################################
-# SALON APPOINTMENT SCHEDULING APP #
-####################################
-
-# To execute this script, run the following command in your terminal:
-# ./salon.sh
-
-
+# ================================================================================================= #
+# SALON APPOINTMENT SCHEDULER																		#
+# ================================================================================================= #
+# To execute this script, run the following command in your terminal:								#
+# ./salon.sh																						#
+# ================================================================================================= #
 
 
-# ==================================================
-# INITIAL VARIABLES
-# ==================================================
+
+
+# ================================================================================================= #
+# INITIAL VARIABLES																					#
+# ================================================================================================= #
 
 DB=salon
 PSQL="psql --username=freecodecamp --dbname=$DB --tuples-only -c"
@@ -20,15 +20,13 @@ PSQL="psql --username=freecodecamp --dbname=$DB --tuples-only -c"
 
 
 
-# ================================================
-# FUNCTIONS
-# ================================================
-
+# ================================================================================================= #
+# FUNCTIONS																							#
+# ================================================================================================= #
 
 FORMAT_VARCHAR() {
 	echo $1 | sed -r 's/^ *| *$//g'
 }
-
 
 SELECT_SERVICE() {
 	# get list of services
@@ -68,7 +66,6 @@ SELECT_SERVICE() {
 	SERVICE_NAME=$(FORMAT_VARCHAR "$SERVICE_NAME")
 }
 
-
 GET_CUSTOMER_DATA() {
 	# get customer_phone
 	echo -e "\nLet's schedule a $SERVICE_NAME. What is your phone number?"
@@ -88,8 +85,7 @@ GET_CUSTOMER_DATA() {
 
 		# insert new customer
 		INSERT_CUSTOMER_RESULT=$($PSQL "
-			INSERT INTO customers(name, phone)
-			VALUES ('$CUSTOMER_NAME', '$CUSTOMER_PHONE');
+			INSERT INTO customers(name, phone) VALUES ('$CUSTOMER_NAME', '$CUSTOMER_PHONE');
 		")
 
 		# get new customer_id
@@ -110,7 +106,6 @@ GET_CUSTOMER_DATA() {
 	# format customer_name
 	CUSTOMER_NAME=$(FORMAT_VARCHAR "$CUSTOMER_NAME")
 }
-
 
 MAKE_APPT() {
 	SELECT_SERVICE
@@ -136,9 +131,9 @@ MAKE_APPT() {
 
 
 
-# =================================================
-# POINT OF ENTRY
-# =================================================
+# ================================================================================================= #
+# POINT OF ENTRY																					#
+# ================================================================================================= #
 
 echo -e "\n~~~~~ EMERY SALON ~~~~~\n"
 echo -e "Welcome to Emery Salon's scheduling app!"
