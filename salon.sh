@@ -31,7 +31,9 @@ FORMAT_VARCHAR() {
 SELECT_SERVICE() {
 	# get list of services
 	ALL_SERVICES=$($PSQL "
-		SELECT * FROM services ORDER BY service_id;
+		SELECT *
+		FROM services
+		ORDER BY service_id;
 	")
 
 	# add list header
@@ -53,7 +55,9 @@ SELECT_SERVICE() {
 
 	# get service_name
 	SERVICE_NAME=$($PSQL "
-		SELECT name FROM services WHERE service_id = $SERVICE_ID_SELECTED;
+		SELECT name
+		FROM services
+		WHERE service_id = $SERVICE_ID_SELECTED;
 	")
 
 	# if service doesn't exist
@@ -73,7 +77,9 @@ GET_CUSTOMER_DATA() {
 
 	# get customer_id
 	CUSTOMER_ID=$($PSQL "
-		SELECT customer_id FROM customers WHERE phone = '$CUSTOMER_PHONE';
+		SELECT customer_id
+		FROM customers
+		WHERE phone = '$CUSTOMER_PHONE';
 	")
 
 	# if customer doesn't exist
@@ -85,21 +91,26 @@ GET_CUSTOMER_DATA() {
 
 		# insert new customer
 		INSERT_CUSTOMER_RESULT=$($PSQL "
-			INSERT INTO customers(name, phone) VALUES ('$CUSTOMER_NAME', '$CUSTOMER_PHONE');
+			INSERT INTO customers (name, phone)
+			VALUES ('$CUSTOMER_NAME', '$CUSTOMER_PHONE');
 		")
 
 		# get new customer_id
 		if [[ $INSERT_CUSTOMER_RESULT == "INSERT 0 1" ]]
 		then
 			CUSTOMER_ID=$($PSQL "
-				SELECT customer_id FROM customers WHERE phone = '$CUSTOMER_PHONE';
+				SELECT customer_id
+				FROM customers
+				WHERE phone = '$CUSTOMER_PHONE';
 			")
 		fi
 
 	else
 		# get customer_name
 		CUSTOMER_NAME=$($PSQL "
-			SELECT name FROM customers WHERE customer_id=$CUSTOMER_ID;
+			SELECT name
+			FROM customers
+			WHERE customer_id=$CUSTOMER_ID;
 		")
 	fi
 
@@ -117,7 +128,7 @@ MAKE_APPT() {
 
 	# insert new appointment
 	INSERT_APPT_RESULT=$($PSQL "
-		INSERT INTO appointments(service_id, customer_id, time)
+		INSERT INTO appointments (service_id, customer_id, time)
 		VALUES ($SERVICE_ID_SELECTED, $CUSTOMER_ID, '$SERVICE_TIME');
 	")
 
